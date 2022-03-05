@@ -3,16 +3,15 @@ import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth } from "./firebaseConfig.js"
 
 
-function SignIn() {
-  const [uid, setUid] = useState(null)
+function SignIn(props) {
+  const {setAuthenticated, setUid, setProfilePic, setUserName} = props;
   const provider = new GoogleAuthProvider();
 
   const signInWithGoogle = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
         // The signed-in user info.
-        const user = result.user;
-        setUid(user.uid);
+        setAuthenticated(true)
         // ...
       }).catch((error) => {
         // Handle Errors here.

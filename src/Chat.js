@@ -49,15 +49,8 @@ useEffect(() => {
         </div>
         <div className='chat--room'>
             <div className='chat--room--container'>
-                <div className='chat--room--container--heading'>
-                    <h2>{props.room}</h2>
-                    {props.room != "main" &&
-                        <p>In this room:</p>
-                    }
-
-                </div>
                 {roomMessages != null &&
-                    Object.keys(roomMessages).map((messageData, index) => 
+                    Object.keys(roomMessages).reverse().map((messageData, index) => 
                     <ChatBubble
                         key = {index}
                         uid = {props.uid}
@@ -68,6 +61,12 @@ useEffect(() => {
                     /> 
                     )
                 }
+                <div className='chat--room--container--heading'>
+                    <h2>{props.room}</h2>
+                    {props.room != "main" &&
+                        <p>In this room:</p>
+                    }
+                </div>
             </div>
             <form className="chat--room--send" onSubmit={(e) => { handleAddingMsg(e)}}>
                 <input required 
@@ -75,6 +74,7 @@ useEffect(() => {
                     value={message} 
                     placeholder='type your message' 
                     onChange={(e)=> setMessage(e.target.value)}
+                    className='chat--room--send--input'
                 >
                 </input>
                 <input className='chat--room--send--submit' type="submit" value="Send"></input>

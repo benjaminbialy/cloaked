@@ -2,6 +2,7 @@
     width: 100%;
     display: flex;
     align-self: flex-end;
+    max-height: 100vh;
 }
 .chat--nav{
     width: 20%;
@@ -11,24 +12,47 @@
     border-style: solid;
     border-width: thin;
     border-color: lightgray;
-    min-height: 100vh;
-}
-.chat--room--send{
-    height: 60px;
-    width: 100%;
-    bottom: 0;
-    position: fixed;
-    background-color: #FFF;
+    height: 100vh;
 }
 .chat--room--container{
     display: flex;
-    flex-direction: column;
-    margin-bottom: 7.5%;
+    flex-direction: column-reverse;
+    margin-bottom: 5vh;
     overflow-y: scroll;
-    height: 100vh;
+    height: 85vh;
 }
 .chat--room--container--heading{
     display: flex;
     justify-content: center;
     width: 100%;
+}
+.chat--room--send{
+    height: 10vh;
+    width: 100%;
+    max-width: 80%;
+    bottom: 0;
+    position: fixed;
+    background-color: #FFF;
+    display: flex;
+    justify-content: space-evenly;
+}
+.chat--room--send--input{
+    width: 80%;
+    background-color: #f6f7f9;
+    outline: none;
+    border-color: transparent;
+    height: 65%;
+    line-height: 80%;
+    border-radius: 25px;
+    padding: 0 15px;
+}
+.chat--room--send--submit{
+    height: 65%;
+    background-color: #f6f7f9;
+    border-color: transparent;
+}
+.chat--room--container--heading{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

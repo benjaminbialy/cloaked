@@ -5,11 +5,11 @@ function ChatBubble(props) {
   return (
     <div className='chat__bubble'
         style={{
-            backgroundColor: props.senderUid === props.uid ? 'lightblue' : 'grey'
+            backgroundColor: props.senderUid === props.uid ? 'white' : '#EDEFF1',
+            alignSelf: props.senderUid === props.uid ? 'flex-end' : 'flex-start'
       }}
     >
-        <img src={props.profilePic}/>
-        <div>{props.userName}</div>
+        <div>{props.senderUid === props.uid ? "You" : props.userName}</div>
         <div>{props.message}</div>
     </div>
   )

@@ -48,20 +48,31 @@ function App() {
         <SignIn />
       </div>
     );
-  }
-  // else if(chooseRoom){
-  //   return(
-  //     <ChooseRoom />
-  //   )
-  // }
-  else{
+  }else if(chooseRoom === true){
     return(
       <div>
         <SignOut setAuthenticated={setAuthenticated}/>
-        Hello, {userName}
-        <Chat uid={uid} profilePic={profilePic} userName={userName}/>
+        <h1>Hello, {userName}</h1>
+        <ChooseRoom uid={uid} userName={userName} setChooseRoom={setChooseRoom}/>
+      </div>
+    )
+  }
+  else if(chooseRoom === chooseRoom){
+    return(
+      <div className="room">
+        <Chat room={chooseRoom} setChooseRoom={setChooseRoom} uid={uid} profilePic={profilePic} 
+              userName={userName} setAuthenticated={setAuthenticated}/>
       </div>
     );
+  }
+  else{
+    return(
+      <div>
+        <h2>Sorry, {userName}, an error was encountered.</h2>
+        <p>Please click the button to choose a new room.</p>
+        <button type="submit" onClick={() => {setChooseRoom(true)}}>Click me</button>
+      </div>
+    )
   }
 }
 

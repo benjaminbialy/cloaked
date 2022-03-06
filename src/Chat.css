@@ -1,4 +1,34 @@
 .chat{
     width: 100%;
-    background-color: rgb(188, 194, 201);
+    display: flex;
+    align-self: flex-end;
+}
+.chat--nav{
+    width: 20%;
+}
+.chat--room{
+    width: 80%;
+    border-style: solid;
+    border-width: thin;
+    border-color: lightgray;
+    min-height: 100vh;
+}
+.chat--room--send{
+    height: 60px;
+    width: 100%;
+    bottom: 0;
+    position: fixed;
+    background-color: #FFF;
+}
+.chat--room--container{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 7.5%;
+    overflow-y: scroll;
+    height: 100vh;
+}
+.chat--room--container--heading{
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }

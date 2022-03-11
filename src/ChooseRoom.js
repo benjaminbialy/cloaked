@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { getDatabase, ref, push, set, onValue } from "firebase/database";
+import { getDatabase, ref, push, set, onValue, update } from "firebase/database";
+import UsersRooms from './UsersRooms';
+import "./ChooseRoom.css"
 
 function ChooseRoom(props) {
 const { setChooseRoom } = props;
@@ -10,6 +12,7 @@ const [attemptPassword, setAttemptPassword] = useState("")
 const [error, setError] = useState("")
 const [realRoomName, setRealRoomName] = useState("")
 const [usersRooms, setUsersRooms] = useState("")
+const [newMember, setNewMember] = useState("")
 
 var arrRoomNames = []
 var arrUsersRooms = []
@@ -51,29 +54,49 @@ useEffect(() => {
 Object.keys(realRoomName).map((names => arrRoomNames.push(realRoomName[names].roomName)))
 
 // an array of objects including a rooms name and password, amongst other data.
-var roomData = (Object.keys(realRoomName).map((roomData => (realRoomName[roomData]))))
+var roomDataArray = (Object.keys(realRoomName).map((roomData => (2, realRoomName[roomData]))))
 
-var members = []
+console.log(roomDataArray)
+// console.log(realRoomName)
 
-// gets all of the members out of a room in array form
-for (let i = 0; i < roomData.length; i++){
-    members.push(roomData[i].members)
-}
+// // finds the index rooms data within roomDataArray
+// var roomDataIndex = roomDataArray.findIndex(array => array.roomName == attemptName);
 
-console.log(members)
+
+// var members = []
+
+// // gets all of the members out of a room in array form
+// for (let i = 0; i < roomDataArray[roomDataIndex].members.length; i++){
+//     members.push(roomDataArray[roomDataIndex].members.length)
+// }
+
  
 // an array of objects of all of the users room names and passwords
 Object.keys(usersRooms).map((names => arrUsersRooms.push(usersRooms[names])))
 
-console.log(arrUsersRooms)
 
+// used get the data of each room that a user has access to
+var arrUsersRoomsData = [];
 
+if(roomDataArray){
+    for (let i in roomDataArray) {
+        // arrUsersRooms holds roomName and password in an object
+        for(let j in arrUsersRooms){
+            // checks that the roomName in arrUsersRooms is in all roomNames
+            if (roomDataArray[i]["roomName"] === arrUsersRooms[j]["roomName"]) {
+                // pushes all roomData info for each room that a user has access to
+                arrUsersRoomsData.push(roomDataArray[i])
+            }
+        }
+    }
+}
 
 const checkPassword = (attemptName, attemptPassword) => {
-    for (let i in roomData) {
-        console.log(1)
-        if (roomData[i]["roomName"] === attemptName) {
-            if(roomData[i]["password"] === attemptPassword){
+    for (let i in roomDataArray) {
+        // checks if the inputted name matches an actual room
+        if (roomDataArray[i]["roomName"] === attemptName) {
+            // checks if the inputted password matches the actual password of said room.
+            if(roomDataArray[i]["password"] === attemptPassword){
                 return true;
             }
         }
@@ -110,37 +133,57 @@ const handleNewRoom = (e) => {
 
 const handleRoomJoin = (e) => {
     e.preventDefault();
+        if(arrRoomNames.includes(attemptName)){
+            for(let i in arrUsersRooms){
+                // checks that the roomName in arrUsersRooms is in all roomNames
+                if (arrUsersRooms[i]["roomName"] === attemptName) {
+                    return setChooseRoom(attemptName)
+                }
+            }
+            if(checkPassword(attemptName, attemptPassword)){
 
-    if(arrRoomNames.includes(attemptName)){
-        if(checkPassword(attemptName, attemptPassword)){
+                // finds the index rooms data within roomDataArray
+                var roomDataIndex = roomDataArray.findIndex(array => array.roomName == attemptName);
 
-            set(newAddUserRoomRef, {
-                roomName: roomName,
-                password: roomPassword
-            });
+                var members = []
 
-            set(newChatroomsRef, {
-                members: [props.userName]
-            });
+                // gets all of the members out of a room in array form
+                for (let i = 0; i < roomDataArray[roomDataIndex].members.length; i++){
+                    console.log(i + " " + members)
+                    members.push(roomDataArray[roomDataIndex].members)
+                }
 
-            setChooseRoom(attemptName)
+                members.push("James Bank")
 
-            setAttemptPassword("")
-            setAttemptName("")
 
+                set(newAddUserRoomRef, {
+                    roomName: attemptName,
+                    password: attemptPassword
+                });
+
+                const dbRef = ref(db, `chatroomNames/-MxRPV56NyyqH8J6cAUf`)
+
+                console.log(members)
+
+                update(dbRef, {members: members}).then(() => {
+                    setChooseRoom(attemptName)
+                }).catch((e) => {
+                  console.log(e);
+                })
+
+                }
+                
+            else{
+                setError("Oops, you've entered the wrong password, please try again.")
+            }
         }
         else{
-            setError("Oops, you've entered the wrong password, please try again.")
-            setAttemptPassword("")
-            setAttemptName("")
-        }
-    }
-    else{
-        setError("This room name doesn't exist")
-        setAttemptName("")
+            setError("This room name doesn't exist")
+        } 
         setAttemptPassword("")
-    }
+        setAttemptName("")    
 }
+
 
 if(error != ""){
     console.log(error)
@@ -150,8 +193,7 @@ if(error != ""){
   return (
     <div className='choose__room'>
         <h2>Where'd you like to meet?</h2>
-        <button type="submit" onClick={() => {setChooseRoom("main")}}>Join the main room</button>
-
+        <button className="button--grey" type="submit" onClick={() => {setChooseRoom("main")}}>Join the main room</button>
         <form className="new--room" onSubmit={(e) => {handleNewRoom(e)}}>
             <label>Make a new room</label>
             <input required 
@@ -188,13 +230,19 @@ if(error != ""){
             </input>
             <input type="submit" value="Enter"></input>
         </form> 
-        { usersRooms != null && usersRooms != "" &&
-            arrUsersRooms.map((roomInfo) => (
-                <div key={roomInfo.roomName}>
-                    <p>{roomInfo.roomName}</p>
-                </div>
-            ))
-        }
+        <div className='choose__room--user__rooms'>
+            { usersRooms != null && usersRooms != "" &&
+                arrUsersRoomsData.map((roomInfo, index) => (
+                    <UsersRooms 
+                        key = {index}
+                        roomName = {roomInfo.roomName}
+                        roomCreator = {roomInfo.createdBy}
+                        members = {roomInfo.members.toString()}
+                        setChooseRoom = {setChooseRoom}
+                    />
+                ))
+            }
+        </div>
     </div>
   )
 }

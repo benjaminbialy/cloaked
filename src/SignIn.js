@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth } from "./firebaseConfig.js"
 
-
 function SignIn(props) {
-  const {setAuthenticated, setUid, setProfilePic, setUserName} = props;
+  const {setAuthenticated, uid, setProfilePic, setUserName} = props;
   const provider = new GoogleAuthProvider();
 
   const signInWithGoogle = () => {
@@ -12,7 +11,7 @@ function SignIn(props) {
       .then((result) => {
         // The signed-in user info.
         setAuthenticated(true)
-        // ...
+
       }).catch((error) => {
         // Handle Errors here.
         const errorCode = error.code;

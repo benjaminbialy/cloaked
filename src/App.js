@@ -1,11 +1,12 @@
 import './App.css';
 import SignIn from './SignIn';
-import SignOut from './SignOut';
 import { useEffect, useState } from "react"
-import { auth, db } from "./firebaseConfig.js"
+import { auth, database, db } from "./firebaseConfig.js"
 import { doc, setDoc } from "firebase/firestore"; 
 import Chat from './Chat';
 import ChooseRoom from './ChooseRoom';
+import { get, ref, set } from "firebase/database";
+
 
 
 function App() {
@@ -14,6 +15,9 @@ function App() {
   const [userName, setUserName] = useState(null)
   const [profilePic, setProfilePic] = useState(null)
   const [chooseRoom, setChooseRoom] = useState(true)
+  const [userAccExists, setUserAccExists] = useState(false)
+
+  const addUserRoomRef = ref(database, 'users/' + uid + "/rooms");
 
 
   useEffect(() => {
@@ -37,6 +41,22 @@ function App() {
         profilePic: profilePic
         }
       );
+
+      get(addUserRoomRef).then((snapshot) => {
+        if (snapshot.exists()) {
+          setUserAccExists(true)
+        } 
+        else 
+        {
+          set(addUserRoomRef, {
+            roomName: "main"
+          });
+          setUserAccExists(true)
+        }
+      }).catch((error) => {
+        console.error(error);
+      });
+
     }  
   }, [uid, authenticated])
   
@@ -51,9 +71,7 @@ function App() {
   }else if(chooseRoom === true){
     return(
       <div>
-        <SignOut setAuthenticated={setAuthenticated}/>
-        <h1>Hello, {userName}</h1>
-        <ChooseRoom uid={uid} userName={userName} setChooseRoom={setChooseRoom}/>
+        <ChooseRoom uid={uid} setAuthenticated={setAuthenticated} userName={userName} setChooseRoom={setChooseRoom} userAccExists={userAccExists}/>
       </div>
     )
   }

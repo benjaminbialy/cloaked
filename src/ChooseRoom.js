@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { getDatabase, ref, push, set, onValue, update } from "firebase/database";
 import UsersRooms from './UsersRooms';
+import SignOut from './SignOut';
 import "./ChooseRoom.css"
+import { auth } from './firebaseConfig';
 
 function ChooseRoom(props) {
-const { setChooseRoom } = props;
+const { setChooseRoom, userAccExists, setAuthenticated, userName } = props;
 const [roomName, setRoomName] = useState("")
 const [roomPassword, setRoomPassword] = useState("")
 const [attemptName, setAttemptName] = useState("")
@@ -12,7 +14,6 @@ const [attemptPassword, setAttemptPassword] = useState("")
 const [error, setError] = useState("")
 const [realRoomName, setRealRoomName] = useState("")
 const [usersRooms, setUsersRooms] = useState("")
-const [newMember, setNewMember] = useState("")
 
 var arrRoomNames = []
 var arrUsersRooms = []
@@ -54,25 +55,12 @@ useEffect(() => {
 Object.keys(realRoomName).map((names => arrRoomNames.push(realRoomName[names].roomName)))
 
 // an array of objects including a rooms name and password, amongst other data.
-var roomDataArray = (Object.keys(realRoomName).map((roomData => (2, realRoomName[roomData]))))
+var roomDataArray = (Object.keys(realRoomName).map((roomData => (realRoomName[roomData]))))
 
-console.log(roomDataArray)
-// console.log(realRoomName)
-
-// // finds the index rooms data within roomDataArray
-// var roomDataIndex = roomDataArray.findIndex(array => array.roomName == attemptName);
-
-
-// var members = []
-
-// // gets all of the members out of a room in array form
-// for (let i = 0; i < roomDataArray[roomDataIndex].members.length; i++){
-//     members.push(roomDataArray[roomDataIndex].members.length)
-// }
-
- 
-// an array of objects of all of the users room names and passwords
-Object.keys(usersRooms).map((names => arrUsersRooms.push(usersRooms[names])))
+if(userAccExists){
+    // an array of objects of all of the users room names and passwords
+    Object.keys(usersRooms).map((names => arrUsersRooms.push(usersRooms[names])))
+}
 
 
 // used get the data of each room that a user has access to
@@ -106,6 +94,9 @@ const checkPassword = (attemptName, attemptPassword) => {
 const handleNewRoom = (e) => {
     e.preventDefault();
 
+    var members = []
+    members.push(props.userName)
+
     if(!arrRoomNames.includes(roomName)){
         set(newCCRef, {
             message: "Welcome, to invite people to the room, share the room name and password with them.",
@@ -120,7 +111,7 @@ const handleNewRoom = (e) => {
             password: roomPassword,
             createdByUid: props.uid,
             createdBy: props.userName,
-            members: [props.userName]
+            members: members
         });
         setRoomName("")
         setRoomPassword("")
@@ -142,30 +133,35 @@ const handleRoomJoin = (e) => {
             }
             if(checkPassword(attemptName, attemptPassword)){
 
-                // finds the index rooms data within roomDataArray
-                var roomDataIndex = roomDataArray.findIndex(array => array.roomName == attemptName);
+
+                // used to get the index of roomDataArray element with the field of roomName == attemptName
+                let indexOfRoomID = roomDataArray.findIndex(id => id.roomName == attemptName);
+
+                // the auto generated id for the room == attemptname in chatRooms node
+                let roomID = Object.keys(realRoomName)[indexOfRoomID]
 
                 var members = []
 
+                console.log(roomDataArray[indexOfRoomID].members.length)
+                console.log(roomDataArray[indexOfRoomID].members)
+
                 // gets all of the members out of a room in array form
-                for (let i = 0; i < roomDataArray[roomDataIndex].members.length; i++){
+                for (let i = 0; i < roomDataArray[indexOfRoomID].members.length; i++){
+                    console.log(indexOfRoomID)
                     console.log(i + " " + members)
-                    members.push(roomDataArray[roomDataIndex].members)
+                    members.push(roomDataArray[indexOfRoomID].members)
                 }
 
-                members.push("James Bank")
-
+                members.push(props.userName)
 
                 set(newAddUserRoomRef, {
                     roomName: attemptName,
                     password: attemptPassword
                 });
 
-                const dbRef = ref(db, `chatroomNames/-MxRPV56NyyqH8J6cAUf`)
+                const dbRef = ref(db, "chatroomNames/" + roomID + "/members")
 
-                console.log(members)
-
-                update(dbRef, {members: members}).then(() => {
+                set(dbRef, {members: members}).then(() => {
                     setChooseRoom(attemptName)
                 }).catch((e) => {
                   console.log(e);
@@ -192,6 +188,8 @@ if(error != ""){
 
   return (
     <div className='choose__room'>
+        <SignOut setAuthenticated={setAuthenticated}/>
+        <h1>Hello, {userName}</h1>
         <h2>Where'd you like to meet?</h2>
         <button className="button--grey" type="submit" onClick={() => {setChooseRoom("main")}}>Join the main room</button>
         <form className="new--room" onSubmit={(e) => {handleNewRoom(e)}}>

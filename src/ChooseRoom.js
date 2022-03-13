@@ -14,6 +14,7 @@ function ChooseRoom(props) {
     const [error, setError] = useState("")
     const [realRoomName, setRealRoomName] = useState("")
     const [usersRooms, setUsersRooms] = useState("")
+    const [chatroomNamesID, setChatroomNamesID] = useState("")
 
     var arrRoomNames = []
     var arrUsersRooms = []
@@ -47,13 +48,16 @@ function ChooseRoom(props) {
             // an array of objects including a rooms name and password, amongst other data.
             var roomDataArray = Object.values(chatroomsData)
 
+            // saves the id each "room" found under the chatroomNames node
+            var roomDataIDArray = Object.keys(chatroomsData)
+
             setRealRoomName(roomDataArray);
+            setChatroomNamesID(roomDataIDArray)
         });
 
     }, [])
 
     var roomDataArray = realRoomName
-    console.log(JSON.stringify(roomDataArray))
 
     // an array of all the room names 
     if(realRoomName != ""){
@@ -69,7 +73,6 @@ function ChooseRoom(props) {
                 arrUsersRooms.push(usersRooms[names])
             }
         }) 
-        console.log(arrUsersRooms)
     }
 
     // used get the data of each room that a user has access to
@@ -120,7 +123,7 @@ function ChooseRoom(props) {
                 password: roomPassword,
                 createdByUid: props.uid,
                 createdBy: userName,
-                members: userName
+                members: [userName]
             });
             setRoomName("")
             setRoomPassword("")
@@ -146,33 +149,22 @@ function ChooseRoom(props) {
                     let indexOfRoomID = roomDataArray.findIndex(id => id.roomName == attemptName);
 
                     // the auto generated id for the room == attemptname in chatRooms node
-                    let roomID = Object.keys(realRoomName)[indexOfRoomID]
-                    console.log(roomID)
-                    var roomMembers = []
+                    let roomID = chatroomNamesID[indexOfRoomID]
 
-                    console.log(roomDataArray[indexOfRoomID])
-                    console.log(roomDataArray[indexOfRoomID].members)
-                    console.log(roomDataArray[indexOfRoomID].members.length)
+                    var roomMembers = []
 
                     // gets all of the members out of a room in array form
                     for (let i = 0; i < roomDataArray[indexOfRoomID].members.length; i++){
-                        console.log(indexOfRoomID)
                         roomMembers.push(roomDataArray[indexOfRoomID].members[i])
-                        console.log(i + " " + roomMembers)
                     }
-                    console.log(roomMembers)
                     roomMembers.push(props.userName)
-                    console.log(roomMembers)
 
                     set(newAddUserRoomRef, {
                         roomName: attemptName,
                         password: attemptPassword
                     });
 
-                    const chatroomsMembersRef = ref(db, 'chatroomNames/-My0pwcn9RvOh1Uc10IK');
-
-                    const newChatroomsMembersRef = push(chatroomsMembersRef);
-
+                    const chatroomsMembersRef = ref(db, "chatroomNames/" + roomID);
 
                     update(chatroomsMembersRef, {
                         members: roomMembers

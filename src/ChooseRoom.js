@@ -34,8 +34,6 @@ function ChooseRoom(props) {
     const newAddUserRoomRef = push(addUserRoomRef);
     const newChatroomsRef = push(chatroomsRef);
 
-
-
     useEffect(() => {
         onValue(addUserRoomRef, (snapshot) => {
             const data = snapshot.val();
@@ -171,17 +169,16 @@ function ChooseRoom(props) {
                         password: attemptPassword
                     });
 
+                    const chatroomsMembersRef = ref(db, 'chatroomNames/-My0pwcn9RvOh1Uc10IK');
 
-                    const membersRef = ref(db, "chatroomNames/" + "-My0pwcn9RvOh1Uc10IK")
+                    const newChatroomsMembersRef = push(chatroomsMembersRef);
 
-                    const newMembersRef = push(membersRef)
 
-                    update(newMembersRef, {
+                    update(chatroomsMembersRef, {
                         members: roomMembers
                     });
 
-                    }
-                    
+                }   
                 else{
                     setError("Oops, you've entered the wrong password, please try again.")
                 }

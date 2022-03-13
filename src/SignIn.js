@@ -3,7 +3,7 @@ import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth } from "./firebaseConfig.js"
 
 function SignIn(props) {
-  const {setAuthenticated, uid, setProfilePic, setUserName} = props;
+  const {setAuthenticated} = props;
   const provider = new GoogleAuthProvider();
 
   const signInWithGoogle = () => {

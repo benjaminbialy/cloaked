@@ -15,7 +15,7 @@ function SignOut({setAuthenticated}) {
         });
     }
   return <div>
-            <button className= "sign__out--button" onClick={() => { signOutWithGoogle()}}>Sign Out</button>
+            <button className= "button--black" onClick={() => { signOutWithGoogle()}}>Sign Out</button>
         </div>;
 }
 

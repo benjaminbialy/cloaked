@@ -1,11 +1,30 @@
 .chat__bubble{
-    width: 400px;
+    width: 450px;
     max-width: 40%;
-    margin: 0.5% 50px;
+    margin: 0.5% 0 0.5% 50px;
+    display: flex;
+}
+.chat__bubble--text{
+    width: 400px;
     padding: 10px;
     color: #1C1C1C;
     border-style: solid;
     border-color: #EDEFF1;
     border-width: 1px;
     border-radius: 15px;
+}
+.chat__bubble--profile__pic{
+    width: 50px;
+    height: 50px;
+    margin: 0 10px;
+    border-radius: 50px;
+}
+.chat__bubble--text--send__info{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+.chat__bubble--text--send__info--timestamp{
+    color: gray;
+    font-size: small;
 }

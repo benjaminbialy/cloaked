@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { getDatabase, ref, push, set, onValue, update, child } from "firebase/database";
+import { getDatabase, ref, push, set, onValue, update } from "firebase/database";
 import UsersRooms from './UsersRooms';
 import SignOut from './SignOut';
 import "./ChooseRoom.css"
@@ -155,9 +155,10 @@ function ChooseRoom(props) {
 
                     // gets all of the members out of a room in array form
                     for (let i = 0; i < roomDataArray[indexOfRoomID].members.length; i++){
-                        roomMembers.push(roomDataArray[indexOfRoomID].members[i])
+                        roomMembers.push(" " + roomDataArray[indexOfRoomID].members[i])
                     }
-                    roomMembers.push(props.userName)
+                    roomMembers.push(" " + props.userName)
+                    
 
                     set(newAddUserRoomRef, {
                         roomName: attemptName,
@@ -169,7 +170,7 @@ function ChooseRoom(props) {
                     update(chatroomsMembersRef, {
                         members: roomMembers
                     });
-
+                    setChooseRoom(attemptName)
                 }   
                 else{
                     setError("Oops, you've entered the wrong password, please try again.")
@@ -198,25 +199,27 @@ function ChooseRoom(props) {
                     <button className="button--black" type="submit" onClick={() => {setChooseRoom("main")}}>Join the main room</button>
                 </div>
             </div>
-            <RoomForm purposeOfForm={"Make a new room"} 
-                handlingFunction={handleNewRoom} 
-                nameValue={roomName} 
-                namePlaceholder={"New room name"}
-                passwordValue={roomPassword} 
-                passwordPlaceholder={"Create a password"}
-                setStateName={setRoomName} 
-                setStatePassword={setRoomPassword} 
-                submitButtonValue={"Create"}/>
-            <RoomForm purposeOfForm={"Join an existing room"} 
-                handlingFunction={handleRoomJoin} 
-                nameValue={attemptName} 
-                namePlaceholder={"Room name"}
-                passwordValue={attemptPassword} 
-                passwordPlaceholder={"Room password"}
-                setStateName={setAttemptName} 
-                setStatePassword={setAttemptPassword} 
-                submitButtonValue={"Enter"}/>
+            <div className='choose__room--forms'>
+                <RoomForm purposeOfForm={"Make a new room"} 
+                    handlingFunction={handleNewRoom} 
+                    nameValue={roomName} 
+                    namePlaceholder={"New room name"}
+                    passwordValue={roomPassword} 
+                    passwordPlaceholder={"Create a password"}
+                    setStateName={setRoomName} 
+                    setStatePassword={setRoomPassword} 
+                    submitButtonValue={"Create"}/>
 
+                <RoomForm purposeOfForm={"Join an existing room"} 
+                    handlingFunction={handleRoomJoin} 
+                    nameValue={attemptName} 
+                    namePlaceholder={"Room name"}
+                    passwordValue={attemptPassword} 
+                    passwordPlaceholder={"Room password"}
+                    setStateName={setAttemptName} 
+                    setStatePassword={setAttemptPassword} 
+                    submitButtonValue={"Enter"}/>
+            </div>
             <div className='choose__room--user__rooms'>
                 { usersRooms != null && usersRooms != "" &&
                     arrUsersRoomsData.map((roomInfo, index) => (

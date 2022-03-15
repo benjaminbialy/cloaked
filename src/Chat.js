@@ -24,21 +24,20 @@ function Chat(props) {
             message: message,
             sender: props.userName,
             profile__pic: props.profilePic,
-            uid: props.uid
+            uid: props.uid,
+            timestamp: Date.now()
         });
-
-        console.log("sent!")
         setMessage("")
     }
 
 
-useEffect(() => {
-    onValue(chatroomRef, (snapshot) => {
-        const data = snapshot.val();
-        setRoomMessages(roomMessages)
-        setRoomMessages(data)
-    });
-}, [])
+    useEffect(() => {
+        onValue(chatroomRef, (snapshot) => {
+            const data = snapshot.val();
+            setRoomMessages(roomMessages)
+            setRoomMessages(data)
+        });
+    }, [])
 
   return (
     <div className='chat'>
@@ -55,9 +54,10 @@ useEffect(() => {
                         key = {index}
                         uid = {props.uid}
                         senderUid = {roomMessages[messageData].uid}
-                        profilePic = {roomMessages[messageData].profilePic} 
+                        profilePic = {roomMessages[messageData].profile__pic} 
                         userName = {roomMessages[messageData].sender}
                         message = {roomMessages[messageData].message}
+                        time = {roomMessages[messageData].timestamp}
                     /> 
                     )
                 }
@@ -68,7 +68,7 @@ useEffect(() => {
                     }
                 </div>
             </div>
-            <form className="chat--room--send" onSubmit={(e) => { handleAddingMsg(e)}}>
+            <form className="chat--room--send" onSubmit={(e) => { handleAddingMsg(e) }}>
                 <input required 
                     type="text" 
                     value={message} 

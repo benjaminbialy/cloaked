@@ -19,7 +19,6 @@ function App() {
 
   const addUserRoomRef = ref(database, 'users/' + uid + "/rooms");
 
-
   useEffect(() => {
     auth.onAuthStateChanged((user) => { 
       if(user){

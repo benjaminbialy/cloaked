@@ -42,9 +42,9 @@ function Chat(props) {
   return (
     <div className='chat'>
         <div className='chat--nav'>
-            <SignOut setAuthenticated={setAuthenticated}/>
-            <button type="submit" onClick={() => {setChooseRoom(true)}}>Join a new room</button>
             <h2>Your other rooms</h2>
+            <SignOut setAuthenticated={setAuthenticated}/>
+            <button className='button--black' type="submit" onClick={() => {setChooseRoom(true)}}>Join a new room</button>
         </div>
         <div className='chat--room'>
             <div className='chat--room--container'>

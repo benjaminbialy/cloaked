@@ -221,6 +221,7 @@ function ChooseRoom(props) {
                     submitButtonValue={"Enter"}/>
             </div>
             <div className='choose__room--user__rooms'>
+                {console.log(arrUsersRoomsData)}
                 { usersRooms != null && usersRooms != "" &&
                     arrUsersRoomsData.map((roomInfo, index) => (
                         <UsersRooms 

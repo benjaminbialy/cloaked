@@ -9,25 +9,67 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    border-right: thin solid lightgray;
+}
+.chat--nav--btns{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 30vh;
+}
+.chat--nav--rooms{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-height: 70vh;
+    overflow-y: scroll;
+    width: 100%;
 }
 .chat--room{
+    display: flex;
+    flex-direction: column;
     width: 80%;
-    border-style: solid;
-    border-width: thin;
-    border-color: lightgray;
-    height: 100vh;
 }
 .chat--room--container{
     display: flex;
     flex-direction: column-reverse;
-    margin-bottom: 5vh;
     overflow-y: scroll;
     height: 85vh;
+}
+.chat--room--container--chats{
+    display: flex;
+    flex-direction: column-reverse;
 }
 .chat--room--container--heading{
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
     width: 100%;
+    padding: 5vh 0;
+    border-bottom: thin solid lightgray;
+}
+.chat--room--container--heading--members{
+    display: flex;
+    justify-content: center;
+    width: 70%;
+    align-items: flex-end;
+}
+.chat--room--container--heading--members div{
+    display: flex;
+    justify-content: flex-start;
+    width: 60%;
+    height: 40px;
+    overflow-x: scroll;
+    white-space: nowrap;
+    font-size: 1.17em;
+}
+.chat--room--container--heading--members h3{
+    height: 40px;
+    margin: 0;
+    width: 125px;
 }
 .chat--room--send{
     height: 10vh;

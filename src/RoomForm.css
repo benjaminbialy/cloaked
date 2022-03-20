@@ -1,0 +1,28 @@
+.room__form{
+    display: flex;
+    width: 100%;
+}
+.room__form--label{
+    font-size: 16pt;
+    font-weight: bold;
+    width: 30%;
+    margin-left: 7.5%;
+}
+.room__form--inputs{
+    width: 70%;
+    display: flex;
+    justify-content: space-evenly;
+}
+.room__form--inputs input{
+    border: none;
+    outline: none;
+    width: 25%;
+    height: 30px;
+}
+.room__form--submit{
+    border-radius: 25px;
+    background-color: black;
+    color: #fafafa;
+    height: 50px;
+    border-color: transparent;
+}

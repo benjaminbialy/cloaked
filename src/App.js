@@ -5,9 +5,7 @@ import { auth, database, db } from "./firebaseConfig.js"
 import { doc, setDoc } from "firebase/firestore"; 
 import Chat from './Chat';
 import ChooseRoom from './ChooseRoom';
-import { getDatabase, ref, push, set, onValue, get } from "firebase/database";
-
-
+import { ref, push, set, onValue, get } from "firebase/database";
 
 function App() {
   const [uid, setUid] = useState(null)
@@ -134,8 +132,16 @@ function App() {
 
   if( authenticated === false){
     return (
-      <div className="App">
-        <h1>cloaked</h1>
+      <div className="app">
+        <nav>
+          <h1>cloaked</h1>
+          <img src={require("./cloak.png")} alt="logo" />
+        </nav>
+        <content>
+          <h2>The web based chat app for chatting whenever you want, wherever you want.</h2>
+          <p>It's as simple as joining a room, inviting your friends and then you're set! All chats are sent in realtime and are simultaneously displayed on all recipients screens.</p>
+          <p>Join the main room will all users or make your own and invite some friends!</p>
+        </content>
         <SignIn />
       </div>
     );

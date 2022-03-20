@@ -25,10 +25,8 @@ function SignIn(props) {
   }
 
   return <div className='signin'>
-            <div className='signin--prompt'>
-                <h2>To proceed to chat, sign in below</h2>
-                <button className='black--button' onClick={() => { signInWithGoogle()}}>Sign In With Google</button>
-            </div>
+                <h2>To get started, sign in below with Google!</h2>
+                <button className='button--black' onClick={() => { signInWithGoogle()}}>Sign In With Google</button>
         </div>;
 }
 

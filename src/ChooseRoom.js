@@ -7,9 +7,9 @@ import RoomForm from './RoomForm';
 import { database } from './firebaseConfig';
 
 function ChooseRoom(props) {
-    const { setChooseRoom, setAuthenticated, userName, 
-        roomDataArray, arrRoomNames, newAddUserRoomRef, newChatroomsRef,
-     arrUsersRooms, chatroomNamesID, arrUsersRoomsData, usersRooms} = props;
+    const { setChooseRoom, setAuthenticated, userName, roomDataArray, arrRoomNames, newAddUserRoomRef, newChatroomsRef,
+            arrUsersRooms, chatroomNamesID, arrUsersRoomsData, usersRooms } = props;
+            
     const [roomName, setRoomName] = useState("")
     const [roomPassword, setRoomPassword] = useState("")
     const [attemptName, setAttemptName] = useState("")

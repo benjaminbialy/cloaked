@@ -135,7 +135,7 @@ function App() {
   if( authenticated === false){
     return (
       <div className="App">
-        <h1>KeggerChat</h1>
+        <h1>cloaked</h1>
         <SignIn />
       </div>
     );
@@ -151,10 +151,8 @@ function App() {
   }
   else if(chooseRoom === chooseRoom){
     return(
-      <div className="room">
         <Chat room={chooseRoom} setChooseRoom={setChooseRoom} uid={uid} profilePic={profilePic} 
-              userName={userName} setAuthenticated={setAuthenticated}/>
-      </div>
+              userName={userName} setAuthenticated={setAuthenticated} arrUsersRoomsData={arrUsersRoomsData} />
     );
   }
   else{

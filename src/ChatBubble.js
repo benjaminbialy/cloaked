@@ -37,13 +37,16 @@ function ChatBubble(props) {
   return (
     <div className='chat__bubble'
       style={{
-        alignSelf: props.senderUid === props.uid ? 'flex-end' : 'flex-start'
+        alignSelf: props.senderUid === props.uid ? 'flex-end' : 'flex-start',
+        flexDirection: props.senderUid === props.uid ? 'row' : 'row-reverse',
+        margin: props.senderUid === props.uid ? "0.5% 0 0.5% 50px" : "0.5% 50px 0.5% 0" 
+
       }}
     >
       <div className='chat__bubble--text'
             style={{
-              backgroundColor: props.senderUid === props.uid ? 'white' : '#EDEFF1',
-          }}
+              backgroundColor: props.senderUid === props.uid ? 'white' : '#EDEFF1'
+            }}
       >
         <div className='chat__bubble--text--send__info'>
           <div>{props.senderUid === props.uid ? "You" : props.userName}</div>

@@ -4,92 +4,23 @@ import UsersRooms from './UsersRooms';
 import SignOut from './SignOut';
 import "./ChooseRoom.css"
 import RoomForm from './RoomForm';
+import { database } from './firebaseConfig';
 
 function ChooseRoom(props) {
-    const { setChooseRoom, userAccExists, setAuthenticated, userName } = props;
+    const { setChooseRoom, setAuthenticated, userName, 
+        roomDataArray, arrRoomNames, newAddUserRoomRef, newChatroomsRef,
+     arrUsersRooms, chatroomNamesID, arrUsersRoomsData, usersRooms} = props;
     const [roomName, setRoomName] = useState("")
     const [roomPassword, setRoomPassword] = useState("")
     const [attemptName, setAttemptName] = useState("")
     const [attemptPassword, setAttemptPassword] = useState("")
     const [error, setError] = useState("")
-    const [realRoomName, setRealRoomName] = useState("")
-    const [usersRooms, setUsersRooms] = useState("")
-    const [chatroomNamesID, setChatroomNamesID] = useState("")
 
-    var arrRoomNames = []
-    var arrUsersRooms = []
-
-    const db = getDatabase();
 
     // used to create a new chatroom.
-    const createChatroomRef = ref(db, 'chatrooms/' + roomName + "/messages");
+    const createChatroomRef = ref(database, 'chatrooms/' + roomName + "/messages");
 
-    // used to add the joined room to the user's account.
-    const addUserRoomRef = ref(db, 'users/' + props.uid + "/rooms");
-
-    // used to check if a room name exists, and it's password.
-    const chatroomsRef = ref(db, 'chatroomNames');
-
-    // used to add to lists of respective refs.
     const newCCRef = push(createChatroomRef);
-    const newAddUserRoomRef = push(addUserRoomRef);
-    const newChatroomsRef = push(chatroomsRef);
-
-    useEffect(() => {
-        onValue(addUserRoomRef, (snapshot) => {
-            const data = snapshot.val();
-            setUsersRooms(data)
-        });
-
-        // gets the names of all the rooms on the app
-        onValue(chatroomsRef, (snapshot) => {
-            const chatroomsData = snapshot.val();
-
-            // an array of objects including a rooms name and password, amongst other data.
-            var roomDataArray = Object.values(chatroomsData)
-
-            // saves the id each "room" found under the chatroomNames node
-            var roomDataIDArray = Object.keys(chatroomsData)
-
-            setRealRoomName(roomDataArray);
-            setChatroomNamesID(roomDataIDArray)
-        });
-
-    }, [])
-
-    var roomDataArray = realRoomName
-
-    // an array of all the room names 
-    if(realRoomName != ""){
-        realRoomName.forEach((object) => {
-            arrRoomNames.push(object.roomName)
-        });
-    }
-
-    if(userAccExists){
-        // an array of objects of all of the users room names and passwords
-        Object.keys(usersRooms).map((names) => {
-            if(usersRooms[names] != "main"){
-                arrUsersRooms.push(usersRooms[names])
-            }
-        }) 
-    }
-
-    // used get the data of each room that a user has access to
-    var arrUsersRoomsData = [];
-
-    if(roomDataArray){
-        for (let i in roomDataArray) {
-            // arrUsersRooms holds roomName and password in an object
-            for(let j in arrUsersRooms){
-                // checks that the roomName in arrUsersRooms is in all roomNames
-                if (roomDataArray[i]["roomName"] === arrUsersRooms[j]["roomName"]) {
-                    // pushes all roomData info for each room that a user has access to
-                    arrUsersRoomsData.push(roomDataArray[i])
-                }
-            }
-        }
-    }
 
     const checkPassword = (attemptName, attemptPassword) => {
         for (let i in roomDataArray) {
@@ -165,7 +96,7 @@ function ChooseRoom(props) {
                         password: attemptPassword
                     });
 
-                    const chatroomsMembersRef = ref(db, "chatroomNames/" + roomID);
+                    const chatroomsMembersRef = ref(database, "chatroomNames/" + roomID);
 
                     update(chatroomsMembersRef, {
                         members: roomMembers
@@ -184,7 +115,7 @@ function ChooseRoom(props) {
     }
 
     if(error != ""){
-        console.log(error)
+        alert(error)
     }
 
     return (

@@ -5,7 +5,7 @@ import { auth, database, db } from "./firebaseConfig.js"
 import { doc, setDoc } from "firebase/firestore"; 
 import Chat from './Chat';
 import ChooseRoom from './ChooseRoom';
-import { get, ref, set } from "firebase/database";
+import { getDatabase, ref, push, set, onValue, get } from "firebase/database";
 
 
 
@@ -16,7 +16,11 @@ function App() {
   const [profilePic, setProfilePic] = useState(null)
   const [chooseRoom, setChooseRoom] = useState(true)
   const [userAccExists, setUserAccExists] = useState(false)
+  const [realRoomName, setRealRoomName] = useState("")
+  const [usersRooms, setUsersRooms] = useState("")
+  const [chatroomNamesID, setChatroomNamesID] = useState("")
 
+  // used to add the joined room to the user's account.
   const addUserRoomRef = ref(database, 'users/' + uid + "/rooms");
 
   useEffect(() => {
@@ -59,6 +63,74 @@ function App() {
     }  
   }, [uid, authenticated])
   
+  var arrRoomNames = []
+  var arrUsersRooms = []
+
+  // used to check if a room name exists, and it's password.
+  const chatroomsRef = ref(database, 'chatroomNames');
+
+  // used to add to lists of respective refs.
+  const newAddUserRoomRef = push(addUserRoomRef);
+  const newChatroomsRef = push(chatroomsRef);
+
+  useEffect(() => {
+    if(authenticated){
+      onValue(addUserRoomRef, (snapshot) => {
+          const data = snapshot.val();
+          setUsersRooms(data)
+      });
+
+      // gets the names of all the rooms on the app
+      onValue(chatroomsRef, (snapshot) => {
+          const chatroomsData = snapshot.val();
+
+          // an array of objects including a rooms name and password, amongst other data.
+          var roomDataArray = Object.values(chatroomsData)
+
+          // saves the id each "room" found under the chatroomNames node
+          var roomDataIDArray = Object.keys(chatroomsData)
+
+          setRealRoomName(roomDataArray);
+          setChatroomNamesID(roomDataIDArray)
+      });
+    }
+
+  }, [authenticated])
+
+  var roomDataArray = realRoomName
+
+  // an array of all the room names 
+  if(realRoomName != ""){
+      realRoomName.forEach((object) => {
+          arrRoomNames.push(object.roomName)
+      });
+  }
+
+  console.log(usersRooms)
+  if(userAccExists){
+      // an array of objects of all of the users room names and passwords
+      Object.keys(usersRooms).map((names) => {
+          if(usersRooms[names] != "main"){
+              arrUsersRooms.push(usersRooms[names])
+          }
+      }) 
+  }
+
+  // used get the data of each room that a user has access to
+  var arrUsersRoomsData = [];
+
+  if(roomDataArray){
+      for (let i in roomDataArray) {
+          // arrUsersRooms holds roomName and password in an object
+          for(let j in arrUsersRooms){
+              // checks that the roomName in arrUsersRooms is in all roomNames
+              if (roomDataArray[i]["roomName"] === arrUsersRooms[j]["roomName"]) {
+                  // pushes all roomData info for each room that a user has access to
+                  arrUsersRoomsData.push(roomDataArray[i])
+              }
+          }
+      }
+  }
 
   if( authenticated === false){
     return (
@@ -70,7 +142,10 @@ function App() {
   }else if(chooseRoom === true){
     return(
       <div>
-        <ChooseRoom uid={uid} setAuthenticated={setAuthenticated} userName={userName} setChooseRoom={setChooseRoom} userAccExists={userAccExists}/>
+        <ChooseRoom uid={uid} setAuthenticated={setAuthenticated} userName={userName} setChooseRoom={setChooseRoom} 
+        userAccExists={userAccExists} roomDataArray={roomDataArray} arrRoomNames={arrRoomNames} 
+        newAddUserRoomRef={newAddUserRoomRef} newChatroomsRef={newChatroomsRef}
+        arrUsersRooms={arrUsersRooms} chatroomNamesID={chatroomNamesID} arrUsersRoomsData={arrUsersRoomsData} usersRooms={usersRooms}/>
       </div>
     )
   }

@@ -1,0 +1,57 @@
+.choose__room{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.choose__room--user__rooms{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: calc(80vw + 30px);
+    margin-bottom: 10%;
+}
+.choose__room--heading{
+    display: flex;
+    width: 80vw;
+    background-color: #ececec;
+    margin: 2.5% 0;
+    height: 200px;
+    border: 1px solid whitesmoke;
+}
+.choose__room--heading--left{
+    width: 70%;
+    padding: 20px 2.5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.choose__room--heading--right{
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-around;
+    padding: 20px 2.5%;
+}
+.choose__room--heading--left h1, .choose__room--heading--left h2{
+    margin: 0;
+}
+.button--black{
+    width: 175px;
+    border-radius: 25px;
+    background-color: black;
+    color: #fafafa;
+    height: 40px;
+    border-color: transparent;
+}
+.choose__room--forms{
+    display: flex;
+    width: 80vw;
+    background-color: #ececec;
+    margin: 2.5% 0;
+    height: 200px;
+    border: 1px solid whitesmoke;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}

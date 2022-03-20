@@ -1,0 +1,23 @@
+.users__rooms{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 200px;
+    width: 220px;
+    background-color: #ececec;
+    border: 1px solid whitesmoke;
+    margin: 15px;
+    padding: 20px;
+}
+.users__rooms h4, .users__rooms p{
+    margin: 0;
+}
+.users__rooms--heading{
+    margin-bottom: 10%;
+    justify-self: center;
+}
+.users__rooms--join{
+    height: 17.5%;
+    width: 60%;
+    align-self: center;
+}

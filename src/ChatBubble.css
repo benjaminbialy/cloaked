@@ -1,6 +1,5 @@
 .chat__bubble{
     width: 450px;
-    max-width: 40%;
     margin: 0.5% 0 0.5% 50px;
     display: flex;
 }
@@ -27,4 +26,22 @@
 .chat__bubble--text--send__info--timestamp{
     color: gray;
     font-size: small;
+    text-align: end;
+}
+@media screen and (max-width: 1024px) {
+    .chat__bubble {
+        width: 70%;
+        margin-top: 12.5px !important;
+    }
+    .chat__bubble--text{
+        width: 100%;
+    } 
+    .chat__bubble--text div{
+        width: 100%;
+    }
+}
+@media screen and (max-width: 768px) {
+    .chat__bubble {
+        width: 85%;
+    }
 }

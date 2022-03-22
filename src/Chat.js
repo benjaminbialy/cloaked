@@ -77,6 +77,10 @@ function Chat(props) {
             </div>
         </div>
         <div className='chat--room'>
+            <div className='chat--room--top'>
+                <button className='button--black' type="submit" onClick={() => {setChooseRoom(true)}}>Join a new room</button>
+                <SignOut setAuthenticated={setAuthenticated}/>
+            </div>
             <div className='chat--room--container'>
                     <div className='chat--room--container--chats'>
                         {roomMessages != null &&

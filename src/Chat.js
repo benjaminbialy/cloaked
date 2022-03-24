@@ -12,7 +12,6 @@ function Chat(props) {
 
     const [message, setMessage] = useState("");
     const [roomMessages, setRoomMessages] = useState([])
-    const [membersList, setMembersList] = useState("")
 
     const db = getDatabase();
     const chatroomRef = ref(db, 'chatrooms/' + props.room + "/messages");

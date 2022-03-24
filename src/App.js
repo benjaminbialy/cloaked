@@ -104,7 +104,6 @@ function App() {
       });
   }
 
-  console.log(usersRooms)
   if(userAccExists){
       // an array of objects of all of the users room names and passwords
       Object.keys(usersRooms).map((names) => {
@@ -137,11 +136,11 @@ function App() {
           <h1>cloaked</h1>
           <img src={require("./cloak.png")} alt="logo" />
         </nav>
-        <content>
+        <div className='app--content'> 
           <h2>The web based chat app for chatting whenever you want, wherever you want.</h2>
           <p>It's as simple as joining a room, inviting your friends and then you're set! All chats are sent in realtime and are simultaneously displayed on all recipients screens.</p>
           <p>Join the main room will all users or make your own and invite some friends!</p>
-        </content>
+        </div>
         <SignIn />
       </div>
     );

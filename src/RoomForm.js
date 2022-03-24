@@ -11,6 +11,7 @@ function RoomForm(props) {
             </div>
             <div className='room__form--inputs'>
                 <input required 
+                className='room__form--inputs--text'
                 type="text" 
                 value={nameValue} 
                 placeholder={namePlaceholder}
@@ -18,6 +19,7 @@ function RoomForm(props) {
                 >
                 </input>
                 <input required 
+                className='room__form--inputs--text'
                 type="text" 
                 value={passwordValue} 
                 placeholder={passwordPlaceholder}

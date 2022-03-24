@@ -45,3 +45,13 @@
         width: 85%;
     }
 }
+@media screen and (max-width: 430px) {
+    .chat__bubble {
+        width: 90%;
+    }
+}
+@media screen and (max-width: 390px) {
+    .chat__bubble--text--send__info--timestamp{
+        display: none;
+    }
+}

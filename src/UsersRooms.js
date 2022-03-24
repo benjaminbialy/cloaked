@@ -12,7 +12,7 @@ function UsersRooms(props) {
         <div className='users__rooms--members'>
           <p>Members: {props.members}</p>
         </div>
-        <button className="users__rooms--join button" type="submit" onClick={() => {setChooseRoom(props.roomName)}}>Join</button>
+        <button className="users__rooms--join--button" type="submit" onClick={() => {setChooseRoom(props.roomName)}}>Join</button>
     </div>
   )
 }

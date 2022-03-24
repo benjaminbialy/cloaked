@@ -21,3 +21,13 @@
     width: 60%;
     align-self: center;
 }
+.users__rooms--join--button{
+    background-color: white;
+    border-width: thin;
+    border-color: transparent;
+    border-radius: 25px;
+    color: black;
+    width: 70%;
+    height: 30px;
+    align-self: center;
+}

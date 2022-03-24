@@ -16,7 +16,6 @@ function ChooseRoom(props) {
     const [attemptPassword, setAttemptPassword] = useState("")
     const [error, setError] = useState("")
 
-
     // used to create a new chatroom.
     const createChatroomRef = ref(database, 'chatrooms/' + roomName + "/messages");
 
@@ -152,7 +151,6 @@ function ChooseRoom(props) {
                     submitButtonValue={"Enter"}/>
             </div>
             <div className='choose__room--user__rooms'>
-                {console.log(arrUsersRoomsData)}
                 { usersRooms != null && usersRooms != "" &&
                     arrUsersRoomsData.map((roomInfo, index) => (
                         <UsersRooms 

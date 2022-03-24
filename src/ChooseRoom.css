@@ -55,3 +55,59 @@
     align-items: center;
     justify-content: space-around;
 }
+@media screen and (max-width: 1024px) {
+    .choose__room--heading, .choose__room--forms{
+        width: 90vw;
+    }
+}
+@media screen and (max-width: 768px) {
+    .choose__room--heading{
+        width: 95vw;
+    }
+    .choose__room--forms{
+        width: 95vw;
+        flex-direction: row;
+    }
+}
+@media screen and (max-width: 575px) {
+    .choose__room--heading{
+        flex-direction: column;
+    }
+    .choose__room--heading--left{
+        padding-bottom: 0;
+        width: 95%;
+        height: 47.5%;
+    }
+    .choose__room--heading--right{
+        flex-direction: row;
+        padding-top: 0;
+        width: 95%;
+        height: 47.5%;
+    }
+    .choose__room--heading--left h1, .choose__room--heading--left h2{
+        text-align: center;
+    }
+}
+@media screen and (max-width: 500px) {
+    .choose__room--forms{
+        flex-direction: column;
+        height: 425px;
+        width: 80vw;
+    }
+    .choose__room--heading{
+        width: 80vw;
+        height: 275px;
+    }
+    .choose__room--heading--right{
+        flex-direction: column;
+        align-items: center;
+    }
+}
+@media screen and (max-width: 425px) {
+    .choose__room--heading--left h1{
+        font-size: 22px;
+    }
+    .choose__room--heading--left h2{
+        font-size: 20px;
+    }
+}

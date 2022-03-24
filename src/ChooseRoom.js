@@ -61,6 +61,8 @@ function ChooseRoom(props) {
         }
         else{
             setError("Sorry, the room name you entered already exists, try something else.")
+            setAttemptName("")
+            setAttemptPassword("")
         }
     }
 
@@ -115,6 +117,7 @@ function ChooseRoom(props) {
 
     if(error != ""){
         alert(error)
+        return setError("")
     }
 
     return (

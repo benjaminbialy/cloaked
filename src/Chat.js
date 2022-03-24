@@ -4,7 +4,6 @@ import { getDatabase, ref, push, set, onValue } from "firebase/database";
 import ChatBubble from './ChatBubble';
 import SignOut from './SignOut';
 import "./Chat.css"
-import ChooseRoom from './ChooseRoom';
 
 function Chat(props) {
 
@@ -48,7 +47,19 @@ function Chat(props) {
 
         // gets all of the members out of a room in array form
         for (let i = 0; i < props.arrUsersRoomsData[indexOfRoomID].members.length; i++){
-            roomMembers.push(props.arrUsersRoomsData[indexOfRoomID].members[i] + " ")
+            // if there's only one member, don't add a comma on the end
+            if (props.arrUsersRoomsData[indexOfRoomID].members.length === 1){
+                roomMembers.push(props.arrUsersRoomsData[indexOfRoomID].members[i])
+            }
+            else{
+                // if this is the last member in the array, don't add a comma
+                if(i != props.arrUsersRoomsData[indexOfRoomID].members.length - 1){
+                    roomMembers.push(props.arrUsersRoomsData[indexOfRoomID].members[i] + ", ")
+                }
+                else{
+                    roomMembers.push(props.arrUsersRoomsData[indexOfRoomID].members[i])
+                }
+            }
         }
     }
 

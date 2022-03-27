@@ -1,167 +1,178 @@
-.chat{
-    width: 100%;
-    display: flex;
-    align-self: flex-end;
-    height: 100vh;
-    max-height: 100vh;
+.chat {
+	width: 100%;
+	display: flex;
+	align-self: flex-end;
+	height: 100vh;
+	max-height: 100vh;
 }
-.chat--nav{
-    width: 20%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border-right: thin solid lightgray;
+.chat--nav {
+	width: 20%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	border-right: thin solid lightgray;
 }
-.chat--nav--btns{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-    width: 100%;
-    height: 30vh;
+.chat--nav--btns {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-evenly;
+	width: 100%;
+	height: 30vh;
 }
-.chat--nav--rooms{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 70vh;
-    overflow-y: scroll;
-    width: 100%;
+.chat--nav--rooms {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: 70vh;
+	overflow-y: scroll;
+	width: 100%;
 }
-.chat--nav--rooms--item{
-    color: black;
-    width: 100%;
-    margin: 10px 0;
-    font-size: 13pt;
-    background-color: white;
-    border: none;
+.chat--nav--rooms--item {
+	color: black;
+	width: 100%;
+	margin: 10px 0;
+	font-size: 13pt;
+	background-color: white;
+	border: none;
 }
-.chat--nav--rooms--item:hover{
-    color: #808080;
-    transition: ease;
+.chat--nav--rooms--item:hover {
+	color: #808080;
+	transition: ease;
 }
-.chat--room{
-    display: flex;
-    flex-direction: column;
-    width: 80%;
+.chat--room {
+	display: flex;
+	flex-direction: column;
+	width: 80%;
 }
-.chat--room--container{
-    display: flex;
-    flex-direction: column-reverse;
-    overflow-y: scroll;
-    height: 85vh;
+.chat--room--container {
+	display: flex;
+	flex-direction: column-reverse;
+	overflow-y: scroll;
+	height: 85vh;
+	padding-bottom: 30px;
 }
-.chat--room--container--chats{
-    display: flex;
-    flex-direction: column-reverse;
+.chat--room--container--chats {
+	display: flex;
+	flex-direction: column-reverse;
 }
-.chat--room--container--heading{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 100%;
-    padding: 5vh 0;
-    border-bottom: thin solid lightgray;
-    margin-bottom: 50px;
+.chat--room--container--heading {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	width: 100%;
+	padding: 5vh 0;
+	border-bottom: thin solid lightgray;
+	margin-bottom: 50px;
 }
-.chat--room--container--heading--members{
-    display: flex;
-    justify-content: center;
-    width: 70%;
-    align-items: flex-end;
+.chat--room--container--heading--members {
+	display: flex;
+	justify-content: center;
+	width: 70%;
+	align-items: flex-end;
 }
-.chat--room--container--heading--members div{
-    display: flex;
-    justify-content: flex-start;
-    width: 60%;
-    height: 40px;
-    overflow-x: scroll;
-    white-space: nowrap;
-    font-size: 1.17em;
+.chat--room--container--heading--members div {
+	display: flex;
+	justify-content: flex-start;
+	width: 60%;
+	height: 40px;
+	overflow-x: scroll;
+	white-space: nowrap;
+	font-size: 1.17em;
 }
-.chat--room--container--heading--members h3{
-    height: 40px;
-    margin: 0;
-    width: 125px;
+.chat--room--container--heading--members h3 {
+	height: 40px;
+	margin: 0;
+	width: 125px;
 }
-.chat--room--send{
-    height: 10vh;
-    width: 100%;
-    max-width: 80%;
-    bottom: 0;
-    position: fixed;
-    background-color: #FFF;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+.chat--room--send {
+	height: 10vh;
+	width: 100%;
+	max-width: 80%;
+	bottom: 0;
+	position: fixed;
+	background-color: white;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
 }
-.chat--room--send--input{
-    width: 80%;
-    background-color: #f6f7f9;
-    outline: none;
-    border-color: transparent;
-    height: 65%;
-    line-height: 80%;
-    border-radius: 25px;
-    padding: 0 15px;
+.chat--room--send--input {
+	width: 80%;
+	background-color: #f6f7f9;
+	outline: none;
+	border-color: transparent;
+	height: 65%;
+	line-height: 80%;
+	border-radius: 25px;
+	padding: 0 15px;
 }
-.chat--room--send--submit{
-    height: 65%;
-    background-color: #f6f7f9;
-    border-color: transparent;
-    color: black;
+.chat--room--send--submit {
+	height: 65%;
+	background-color: #f6f7f9;
+	border-color: transparent;
+	color: black;
 }
-.chat--room--container--heading{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.chat--room--container--heading {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
-.chat--room--top{
-    width: 0;
-    height: 0; 
-    visibility: hidden;
-    width: 100%;
-    max-width: 90vw;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    height: 75px;
-    padding: 0 5vw;
+.chat--room--top {
+	width: 0;
+	height: 0;
+	visibility: hidden;
+	width: 100%;
+	max-width: 90vw;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	position: fixed;
+	top: 0;
+	height: 75px;
+	padding: 0 5vw;
+	z-index: 5;
 }
-.chat--room--top button{
-    margin: 0;
+.chat--room--top button {
+	margin: 0;
 }
 @media screen and (max-width: 900px) {
-    .chat--nav {
-        visibility: hidden;
-        width: 0;    
-    }
-    .chat--room{
-        width: 100vw;
-        margin: 75px 0;
-    }
-    .chat--room--send{
-        max-width: none;
-        width: 100%;
-    }
-    .chat--room--top{
-        visibility: visible;
-        background-color: white;
-    }
-    .chat--room--top button{
-        margin: 0;
-    }
-    .chat--room--container--chats{
-        margin-bottom: 5%;
-    }
+	.chat--nav {
+		visibility: hidden;
+		width: 0;
+	}
+	.chat--room {
+		width: 100vw;
+		margin: 75px 0;
+	}
+	.chat--room--send {
+		max-width: none;
+		width: 100%;
+	}
+	.chat--room--top {
+		visibility: visible;
+		background-color: white;
+	}
+	.chat--room--top button {
+		margin: 0;
+	}
+	.chat--room--container--chats {
+		margin-bottom: 5%;
+	}
+	.chat--room--container {
+		padding-bottom: 0px;
+	}
 }
+@media screen and (max-width: 600px) {
+	.chat--room--container {
+		padding-bottom: 10px;
+	}
+}
+
 @media screen and (max-width: 395px) {
-    .chat--room--top {
-        flex-direction: column;
-        height: 100px;
-        justify-content: space-around;
-    }
+	.chat--room--top {
+		flex-direction: column;
+		height: 100px;
+		justify-content: space-around;
+	}
 }

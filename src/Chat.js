@@ -24,7 +24,6 @@ function Chat(props) {
 			profile__pic: props.profilePic,
 			uid: props.uid,
 			timestamp: Date.now(),
-			reply: false,
 		});
 		setMessage("");
 	};

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { getDatabase, ref, update } from "firebase/database";
 import "./ChatBubble.css";
+import Reaction from "./Reaction";
 
 function ChatBubble(props) {
 	const [messageClick, setMessageClick] = useState(false);
@@ -94,7 +95,7 @@ function ChatBubble(props) {
 							props.senderUid === props.uid ? "row" : "row-reverse",
 					}}
 				>
-					<button>reply</button>
+					{/* <button>reply</button> */}
 				</div>
 				<div
 					className="chat__bubble--text"
@@ -222,17 +223,24 @@ function ChatBubble(props) {
 					</div>
 				</div>
 			) : props.reacts !== undefined ? (
-				<div className="chat__bubble--container--reacts">
-					<div className="chat__bubble__container--reacts--container">
-						<div class="tooltip">
-							😑
-							<span class="tooltiptext">Benjamin Bialy</span>
-						</div>
-						<div class="tooltip">
-							😑
-							<span class="tooltiptext">Benjamin Bialy</span>
-						</div>
-					</div>
+				<div
+					className="chat__bubble--sent--reacts--container"
+					style={{
+						margin:
+							props.senderUid === props.uid
+								? "0px 70px 0px 50px"
+								: "0px 50px 0px 70px",
+						alignSelf:
+							props.senderUid === props.uid ? "flex-end" : "flex-start",
+					}}
+				>
+					{props.reacts.map((react, key) => (
+						<Reaction
+							key={key}
+							react={react["react"]}
+							reactSender={react["reactSender"]}
+						/>
+					))}
 				</div>
 			) : (
 				<div className="nothing"></div>

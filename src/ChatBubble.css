@@ -1,7 +1,7 @@
 .chat__bubble--container {
 	display: flex;
 	flex-direction: column;
-	width: 575px;
+	width: 550px;
 }
 .chat__bubble--container--reacts {
 	display: flex;
@@ -16,9 +16,7 @@
 	display: flex;
 	justify-content: center;
 	flex-wrap: wrap;
-	animation: 5s ease-in;
 }
-
 .chat__bubble {
 	display: flex;
 	overflow-x: visible;
@@ -60,42 +58,12 @@
 	font-size: 24px;
 	padding: 8px;
 }
-.tooltip {
-	position: relative;
-	text-align: center;
-	font-size: 24px;
-	padding: 8px;
-}
-
-.tooltip .tooltiptext {
-	visibility: hidden;
-	width: 120px;
-	background-color: black;
-	color: #fff;
-	text-align: center;
-	border-radius: 6px;
-	padding: 5px 0;
-	position: absolute;
-	z-index: 1;
-	top: 150%;
-	left: 50%;
-	margin-left: -60px;
-	font-size: small;
-}
-
-.tooltip .tooltiptext::after {
-	content: "";
-	position: absolute;
-	bottom: 100%;
-	left: 50%;
-	margin-left: -5px;
-	border-width: 5px;
-	border-style: solid;
-	border-color: transparent transparent black transparent;
-}
-
-.tooltip:hover .tooltiptext {
-	visibility: visible;
+.chat__bubble--sent--reacts--container {
+	width: 420px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	margin: 0px 60px 0 70px;
 }
 @media screen and (max-width: 1024px) {
 	.chat__bubble {
@@ -104,6 +72,9 @@
 	.chat__bubble--container {
 		width: 70%;
 		margin-top: 12.5px !important;
+	}
+	.chat__bubble--sent--reacts--container {
+		width: calc(100% - 120px);
 	}
 	.chat__bubble--text {
 		width: 100%;
@@ -117,14 +88,25 @@
 		width: 90%;
 	}
 }
+@media screen and (max-width: 600px) {
+	.chat__bubble--sent--reacts--container {
+		width: calc(100% - 117px);
+	}
+}
 @media screen and (max-width: 500px) {
 	.chat__bubble--container {
 		width: 95%;
+	}
+	.chat__bubble--sent--reacts--container {
+		width: calc(100% - 118px);
 	}
 }
 @media screen and (max-width: 470px) {
 	.chat__bubble--container {
 		width: 97.5%;
+	}
+	.chat__bubble--sent--reacts--container {
+		width: calc(100% - 117px);
 	}
 }
 @media screen and (max-width: 455px) {

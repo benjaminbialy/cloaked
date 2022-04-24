@@ -132,6 +132,7 @@ function Chat(props) {
 										time={roomMessages[messageData].timestamp}
 										reacts={roomMessages[messageData].reactions}
 										thisUserName={props.userName}
+										thisUid={props.uid}
 										room={props.room}
 									/>
 								))}

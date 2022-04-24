@@ -58,6 +58,7 @@ function ChatBubble(props) {
 		newReact = {
 			reactSender: props.thisUserName,
 			react: reaction,
+			senderUid: props.uid,
 		};
 
 		sendReactArray.push(newReact);
